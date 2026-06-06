@@ -348,7 +348,7 @@ MIT License — See [LICENSE](LICENSE) file
 
 Document Summarizer v1.0 (June 2026)
 
-**Contact:** [tuhinkumarsingharoy2001@gmail.com] | **GitHub:** [github.com/Tuhin108]
+**Contact:** [Email](tuhinkumarsingharoy2001@gmail.com) | **GitHub:** [Tuhin Kumar Singha Roy](github.com/Tuhin108)
 
 ---
 
