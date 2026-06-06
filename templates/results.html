@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}DocSummarizer — Results{% endblock %}
+
+{% block content %}
+
+<!-- ── Page header ── -->
+<section class="page-header">
+  <div class="page-header__left">
+    <a href="{{ url_for('index') }}" class="back-link">← Back</a>
+    <h1 class="page-title">Summary Report</h1>
+    <p class="page-subtitle">
+      {{ results | length }} document{{ 's' if results | length != 1 else '' }} processed
+    </p>
+  </div>
+  <div class="page-header__actions">
+    <a href="{{ url_for('download_csv') }}" class="btn btn--outline">
+      <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download CSV
+    </a>
+    <a href="{{ url_for('download_pdf') }}" class="btn btn--primary">
+      <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download PDF Report
+    </a>
+  </div>
+</section>
+
+<!-- ── Stats bar ── -->
+<div class="stats-bar">
+  {% set ok_count = results | selectattr('status', 'equalto', 'ok') | list | length %}
+  {% set warn_count = results | selectattr('status', 'equalto', 'warning') | list | length %}
+  {% set err_count = results | selectattr('status', 'equalto', 'error') | list | length %}
+  <div class="stat">
+    <span class="stat__val">{{ results | length }}</span>
+    <span class="stat__label">Total Files</span>
+  </div>
+  <div class="stat">
+    <span class="stat__val stat__val--green">{{ ok_count }}</span>
+    <span class="stat__label">Summarised</span>
+  </div>
+  {% if warn_count %}
+  <div class="stat">
+    <span class="stat__val stat__val--amber">{{ warn_count }}</span>
+    <span class="stat__label">Warnings</span>
+  </div>
+  {% endif %}
+  {% if err_count %}
+  <div class="stat">
+    <span class="stat__val stat__val--red">{{ err_count }}</span>
+    <span class="stat__label">Errors</span>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ── Results table ── -->
+<div class="table-wrap">
+  <table class="results-table">
+    <thead>
+      <tr>
+        <th class="col-num">#</th>
+        <th class="col-file">File Name</th>
+        <th class="col-words">Words</th>
+        <th class="col-status">Status</th>
+        <th class="col-summary">AI Summary</th>
+        <th class="col-link">Drive Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for doc in results %}
+      <tr class="result-row result-row--{{ doc.status }}">
+
+        <!-- Number -->
+        <td class="col-num">{{ loop.index }}</td>
+
+        <!-- File name -->
+        <td class="col-file">
+          <div class="file-info">
+            <span class="file-icon">{{ '📄' if 'pdf' in doc.mime_type else ('📝' if 'word' in doc.mime_type else '📃') }}</span>
+            <div>
+              <span class="file-name">{{ doc.filename }}</span>
+              <span class="file-type">{{ doc.mime_type.split('/')[-1][:20] }}</span>
+            </div>
+          </div>
+        </td>
+
+        <!-- Word count -->
+        <td class="col-words">
+          {% if doc.word_count %}
+            {{ '{:,}'.format(doc.word_count) }}
+          {% else %}
+            <span class="muted">—</span>
+          {% endif %}
+        </td>
+
+        <!-- Status badge -->
+        <td class="col-status">
+          <span class="status-badge status-badge--{{ doc.status }}">
+            {% if doc.status == 'ok' %}✓ OK
+            {% elif doc.status == 'warning' %}⚠ Warning
+            {% else %}✗ Error{% endif %}
+          </span>
+        </td>
+
+        <!-- Summary -->
+        <td class="col-summary">
+          <div class="summary-text" id="summary-{{ loop.index }}">
+            {{ doc.summary }}
+          </div>
+          {% if doc.summary | length > 300 %}
+          <button class="expand-btn" onclick="toggleExpand('summary-{{ loop.index }}', this)">
+            Show less ▲
+          </button>
+          {% endif %}
+        </td>
+
+        <!-- Drive link -->
+        <td class="col-link">
+          {% if doc.file_id %}
+          <a
+            href="https://drive.google.com/file/d/{{ doc.file_id }}/view"
+            target="_blank"
+            rel="noopener"
+            class="drive-link"
+            title="Open in Google Drive"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Open
+          </a>
+          {% else %}
+          <span class="muted">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" class="empty-state">
+          No documents were processed. <a href="{{ url_for('index') }}">Go back</a> to process a folder.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- ── Bottom actions ── -->
+<div class="bottom-actions">
+  <a href="{{ url_for('index') }}" class="btn btn--ghost">← Process another folder</a>
+  <div class="bottom-actions__downloads">
+    <a href="{{ url_for('download_csv') }}" class="btn btn--outline">↓ CSV</a>
+    <a href="{{ url_for('download_pdf') }}" class="btn btn--primary">↓ PDF Report</a>
+  </div>
+</div>
+
+{% endblock %}

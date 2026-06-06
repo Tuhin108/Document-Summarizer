@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}DocSummarizer — Home{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero__eyebrow">AI Document Intelligence</div>
+  <h1 class="hero__title">
+    Summarize every document<br>
+    <em>in your Drive.</em>
+  </h1>
+  <p class="hero__sub">
+    Connect to Google Drive, point to a folder, and get crisp AI-written
+    summaries of every PDF, Word doc, and text file — in seconds.
+  </p>
+
+  <!-- Step cards -->
+  <div class="steps">
+    <div class="step {% if authenticated %}step--done{% endif %}">
+      <div class="step__num">01</div>
+      <div class="step__body">
+        <h3>Connect Drive</h3>
+        <p>Authenticate with your Google account via OAuth2.</p>
+      </div>
+      {% if authenticated %}<span class="step__check">✓</span>{% endif %}
+    </div>
+    <div class="step__arrow">→</div>
+    <div class="step {% if authenticated %}step--active{% endif %}">
+      <div class="step__num">02</div>
+      <div class="step__body">
+        <h3>Choose Folder</h3>
+        <p>Enter the Drive folder ID (or leave blank for root).</p>
+      </div>
+    </div>
+    <div class="step__arrow">→</div>
+    <div class="step {% if result_count > 0 %}step--done{% endif %}">
+      <div class="step__num">03</div>
+      <div class="step__body">
+        <h3>Get Summaries</h3>
+        <p>Download a styled PDF or CSV report instantly.</p>
+      </div>
+      {% if result_count > 0 %}<span class="step__check">✓</span>{% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ── Main panel ── -->
+<section class="panel">
+
+  {% if not authenticated %}
+  <!-- Connect card -->
+  <div class="card card--center">
+    <div class="card__icon">🔑</div>
+    <h2 class="card__title">Connect Google Drive</h2>
+    <p class="card__desc">
+      Sign in with Google to give DocSummarizer read-only access
+      to your Drive files. No data is stored on our servers.
+    </p>
+    <a href="{{ url_for('auth') }}" class="btn btn--primary btn--lg">
+      <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+        <polyline points="10 17 15 12 10 7"/>
+        <line x1="15" y1="12" x2="3" y2="12"/>
+      </svg>
+      Sign in with Google
+    </a>
+    <p class="card__note">Read-only scope &nbsp;·&nbsp; OAuth2 secured</p>
+  </div>
+
+  {% else %}
+  <!-- Process card -->
+  <div class="card">
+    <div class="card__header">
+      <div class="card__icon card__icon--sm">📁</div>
+      <div>
+        <h2 class="card__title">Process Documents</h2>
+        <p class="card__desc">Choose a Google Drive folder to summarize.</p>
+      </div>
+    </div>
+
+    <form action="{{ url_for('process') }}" method="POST" id="processForm">
+      <div class="form-group">
+        <label class="form-label" for="folder_id">
+          Folder ID
+          <span class="form-hint">Leave blank to use My Drive root</span>
+        </label>
+        <div class="input-row">
+          <input
+            type="text"
+            id="folder_id"
+            name="folder_id"
+            class="form-input"
+            value="{{ folder_id }}"
+            placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+          />
+          <button type="submit" class="btn btn--primary" id="submitBtn">
+            <span class="btn__text">Summarize</span>
+            <span class="btn__spinner hidden">⏳</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-hint-block">
+        <strong>How to find your Folder ID:</strong>
+        Open the folder in Google Drive → copy the long ID from the URL:
+        <code>drive.google.com/drive/folders/<strong>[FOLDER-ID]</strong></code>
+      </div>
+    </form>
+
+    {% if result_count > 0 %}
+    <div class="result-banner">
+      <span>🎉 {{ result_count }} document(s) summarized</span>
+      <div class="result-banner__actions">
+        <a href="{{ url_for('results') }}" class="btn btn--sm btn--outline">View Results</a>
+        <a href="{{ url_for('download_csv') }}" class="btn btn--sm btn--outline">↓ CSV</a>
+        <a href="{{ url_for('download_pdf') }}" class="btn btn--sm btn--primary">↓ PDF</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</section>
+
+<!-- ── Feature strip ── -->
+<section class="features">
+  <div class="feature">
+    <div class="feature__icon">📄</div>
+    <h4>PDF, DOCX, TXT</h4>
+    <p>PyMuPDF + python-docx for accurate text extraction.</p>
+  </div>
+  <div class="feature">
+    <div class="feature__icon">🤖</div>
+    <h4>Gemini AI</h4>
+    <p>5–10 sentence professional summaries via Google Gemini API.</p>
+  </div>
+  <div class="feature">
+    <div class="feature__icon">📊</div>
+    <h4>Export Reports</h4>
+    <p>Download styled PDF or CSV with all summaries.</p>
+  </div>
+  <div class="feature">
+    <div class="feature__icon">🔒</div>
+    <h4>Read-only Access</h4>
+    <p>OAuth2 with minimal scopes. No file modifications.</p>
+  </div>
+</section>
+
+{% endblock %}

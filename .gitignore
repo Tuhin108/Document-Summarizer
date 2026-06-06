@@ -1,0 +1,122 @@
+# ════════════════════════════════════════════════════════════════
+# DocSummarizer .gitignore
+# Never commit secrets, credentials, or temporary files
+# ════════════════════════════════════════════════════════════════
+
+# ── CRITICAL: SECRETS & CREDENTIALS ──────────────────────────────
+# NEVER commit these files — they contain API keys and tokens
+.env
+.env.local
+.env.*.local
+credentials.json
+*.key
+*.pem
+*.p12
+*.pfx
+token.pickle
+token*.json
+flask_session/
+session_data/
+
+# ── PYTHON ───────────────────────────────────────────────────────
+# Compiled bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Unit test / coverage
+.tox/
+.nox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Virtual environments
+.python-version
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.envrc
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.AppleDouble
+.LSOverride
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+*.iml
+
+# ── FLASK ────────────────────────────────────────────────────────
+instance/
+.webassets-cache
+*.log
+logs/
+
+# ── TEMPORARY FILES ──────────────────────────────────────────────
+# Test files (development only)
+test_*.py
+check_*.py
+debug_*.py
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Generated reports (local, shouldn't be committed)
+*.pdf
+*.csv
+document_summaries.pdf
+summary_report_*.pdf
+
+# System files
+Thumbs.db
+
+# ── PROJECT-SPECIFIC ────────────────────────────────────────────
+uploads/
+reports/
+exports/
+
+# Developer notes
+TODO.md
+NOTES.md
+debug_*.txt
