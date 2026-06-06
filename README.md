@@ -1,7 +1,7 @@
 # DocSummarizer
 
-> AI-powered document summarization via Google Drive Integration.  
-> Connect → Select Folder → Get Summaries → Export PDF/CSV.
+AI-powered document summarization via Google Drive Integration.  
+Connect → Select Folder → Get Summaries → Export PDF/CSV.
 
 [![Python](https://img.shields.io/badge/Python-3.11.9-blue?style=flat-square)](https://www.python.org/downloads/release/python-3119/)
 [![Flask](https://img.shields.io/badge/Flask-3.0+-green?style=flat-square)](https://flask.palletsprojects.com/)
@@ -396,5 +396,4 @@ For issues, questions, or suggestions:
 ---
 
 **Made with ❤️ using Flask + Google APIs + Gemini AI**
-#   D o c u m e n t - S u m m a r i z e r  
- 
+#
