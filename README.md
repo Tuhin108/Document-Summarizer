@@ -1,4 +1,5 @@
-<img width="1919" height="965" alt="Screenshot 2026-06-06 124021" src="https://github.com/user-attachments/assets/31ece0a9-ca55-4674-b36a-533ac4391f22" /># DocSummarizer
+<img width="1919" height="965" alt="Screenshot 2026-06-06 124021" src="https://github.com/user-attachments/assets/31ece0a9-ca55-4674-b36a-533ac4391f22" />
+# DocSummarizer
 
 AI-powered document summarization via Google Drive Integration.  
 Connect → Select Folder → Get Summaries → Export PDF/CSV.
