@@ -6,7 +6,6 @@ Connect → Select Folder → Get Summaries → Export PDF/CSV.
 [![Python](https://img.shields.io/badge/Python-3.11.9-blue?style=flat-square)](https://www.python.org/downloads/release/python-3119/)
 [![Flask](https://img.shields.io/badge/Flask-3.0+-green?style=flat-square)](https://flask.palletsprojects.com/)
 [![Gemini AI](https://img.shields.io/badge/AI-Gemini%203.5-orange?style=flat-square)](https://ai.google.dev/)
-[![License](https://img.shields.io/badge/License-MIT-gray?style=flat-square)](LICENSE)
 
 ---
 
