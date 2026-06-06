@@ -349,7 +349,7 @@ MIT License — See [LICENSE](LICENSE) file
 
 Document Summarizer v1.0 (June 2026)
 
-**Contact:** [Your Email] | **GitHub:** [Your GitHub]
+**Contact:** [tuhinkumarsingharoy2001@gmail.com] | **GitHub:** [github.com/Tuhin108]
 
 ---
 
@@ -359,21 +359,6 @@ Document Summarizer v1.0 (June 2026)
 - **ReportLab** for PDF generation
 - **Flask** ecosystem
 - Inspired by document analysis workflows
-
----
-
-## 📞 Support
-
-For issues, questions, or suggestions:
-
-1. Check [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed setup
-2. Review **Troubleshooting** section above
-3. Check [GitHub Issues](https://github.com/YOUR_USERNAME/document-summarizer/issues)
-4. Create a new issue with:
-   - Error message (full traceback)
-   - Steps to reproduce
-   - Python version (`python --version`)
-   - OS (Windows/Mac/Linux)
 
 ---
 
