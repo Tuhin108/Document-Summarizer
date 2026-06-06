@@ -1,4 +1,4 @@
-# DocSummarizer
+<img width="1919" height="965" alt="Screenshot 2026-06-06 124021" src="https://github.com/user-attachments/assets/31ece0a9-ca55-4674-b36a-533ac4391f22" /># DocSummarizer
 
 AI-powered document summarization via Google Drive Integration.  
 Connect → Select Folder → Get Summaries → Export PDF/CSV.
@@ -206,6 +206,11 @@ Click **"Process Folder"** → App fetches and summarizes all supported files
 **Recommendation:** Use `gemini-3.5-flash` for best price/performance.
 
 ---
+
+# Screenshots and Demo Link-
+<img width="1919" height="965" alt="Screenshot 2026-06-06 124021" src="https://github.com/user-attachments/assets/643937ea-6eee-4cdd-b2b4-0ed0e2c18cc3" />
+<img width="1919" height="964" alt="Screenshot 2026-06-06 124036" src="https://github.com/user-attachments/assets/2a4cca06-16a3-4166-98f7-6c02295a69a6" />
+<img width="1919" height="966" alt="Screenshot 2026-06-06 124001" src="https://github.com/user-attachments/assets/8da9560b-1f92-496f-b970-a780a602bfe8" />
 
 ## 🔐 Security & Privacy
 
